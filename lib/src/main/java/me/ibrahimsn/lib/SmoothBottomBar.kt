@@ -17,6 +17,7 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.animation.DecelerateInterpolator
 import android.widget.PopupMenu
 import androidx.annotation.*
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
@@ -58,7 +59,7 @@ class SmoothBottomBar @JvmOverloads constructor(
 
     @Dimension
     private var _barCornerRadius = context.d2p(DEFAULT_BAR_CORNER_RADIUS)
-    
+
     private var _barCorners = DEFAULT_BAR_CORNERS
 
     @Dimension
@@ -80,6 +81,9 @@ class SmoothBottomBar @JvmOverloads constructor(
 
     @ColorInt
     private var _itemTextColor = Color.WHITE
+
+    @ColorInt
+    private var _itemTextColorActive = Color.WHITE
 
     @ColorInt
     private var _itemBadgeColor = Color.RED
@@ -156,7 +160,15 @@ class SmoothBottomBar @JvmOverloads constructor(
         @ColorInt get() = _itemTextColor
         set(@ColorInt value) {
             _itemTextColor = value
-            paintText.color = value
+           // paintText.color = value
+            invalidate()
+        }
+
+    var itemTextColorActive: Int
+        @ColorInt get() = _itemTextColorActive
+        set(@ColorInt value) {
+            _itemTextColorActive = value
+            //paintText.color = value
             invalidate()
         }
     var itemBadgeColor: Int
@@ -270,7 +282,7 @@ class SmoothBottomBar @JvmOverloads constructor(
     private val paintText = Paint().apply {
         isAntiAlias = true
         style = Paint.Style.FILL
-        color = itemTextColor
+        //color = itemTextColor
         textSize = itemTextSize
         textAlign = Paint.Align.CENTER
         isFakeBoldText = true
@@ -326,6 +338,12 @@ class SmoothBottomBar @JvmOverloads constructor(
                 R.styleable.SmoothBottomBar_textColor,
                 itemTextColor
             )
+
+            itemTextColorActive = typedArray.getColor(
+                R.styleable.SmoothBottomBar_textColorActive,
+                itemTextColorActive
+            )
+
             itemTextSize = typedArray.getDimension(
                 R.styleable.SmoothBottomBar_textSize,
                 itemTextSize
@@ -469,10 +487,10 @@ class SmoothBottomBar @JvmOverloads constructor(
         }
 
         // Draw indicator
-        rect.left = indicatorLocation
-        rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding
-        rect.right = indicatorLocation + itemWidth
-        rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2 + itemPadding
+        rect.left = indicatorLocation + 10
+        rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding + 5
+        rect.right = indicatorLocation + itemWidth - 15
+        rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2 + itemPadding - 10
 
         canvas.drawRoundRect(
             rect,
@@ -499,7 +517,6 @@ class SmoothBottomBar @JvmOverloads constructor(
                 )
 
                 tintAndDrawIcon(item, index, canvas)
-
                 paintText.alpha = item.alpha
                 canvas.drawText(
                     item.title,
@@ -510,35 +527,47 @@ class SmoothBottomBar @JvmOverloads constructor(
 
         } else {
             for ((index, item) in items.withIndex()) {
-                val textLength = paintText.measureText(item.title)
+                //val textLength = paintText.measureText(item.title)
 
                 item.icon.mutate()
                 item.icon.setBounds(
                     item.rect.centerX()
-                        .toInt() - itemIconSize.toInt() / 2 - ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
+                        .toInt() - itemIconSize.toInt() / 2 - ( (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
                     height / 2 - itemIconSize.toInt() / 2,
                     item.rect.centerX()
-                        .toInt() + itemIconSize.toInt() / 2 - ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
+                        .toInt() + itemIconSize.toInt() / 2 - ( (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
                     height / 2 + itemIconSize.toInt() / 2
                 )
                 //set badge indicator
-                if(badge_arr.contains(index)){
-                    canvas.drawCircle(
-                        item.rect.centerX()
-                            .toInt() - itemIconSize.toInt() / 2f - ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE)),
-                        height / 2f - itemIconSize.toInt() / 2f,
-                        10f,
-                        badgePaint
-                    )
-                }
+//                if(badge_arr.contains(index)){
+//                    canvas.drawCircle(
+//                        item.rect.centerX()
+//                            .toInt() - itemIconSize.toInt() / 2f - ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE)),
+//                        height / 2f - itemIconSize.toInt() / 2f,
+//                        10f,
+//                        badgePaint
+//                    )
+//                }
 
                 tintAndDrawIcon(item, index, canvas)
 
-                paintText.alpha = item.alpha
+
+
+                //paintText.alpha = item.alpha
+               paintText.color = if (index == this._itemActiveIndex) itemTextColorActive else itemTextColor
+//                canvas.drawText(
+//                    item.title,
+//                    item.rect.centerX() + itemIconSize / 2 + itemIconMargin,
+//                    item.rect.centerY() - textHeight, paintText
+//                )
+
+
+
+
                 canvas.drawText(
                     item.title,
-                    item.rect.centerX() + itemIconSize / 2 + itemIconMargin,
-                    item.rect.centerY() - textHeight, paintText
+                    item.rect.centerX(),
+                    item.rect.centerY() + itemIconSize / 2 + itemIconMargin + 28, paintText
                 )
             }
         }

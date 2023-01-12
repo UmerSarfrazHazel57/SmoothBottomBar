@@ -58,7 +58,7 @@ All design and inspiration credits belong to [Alejandro Ausejo](https://dribbble
 
 -   Use SmoothBottomBar callbacks in your activity
 ```kotlin
-bottomBar.onItemSelected = {
+bottomBar. = {
     status.text = "Item $it selected"
 }
 
@@ -70,7 +70,7 @@ bottomBar.onItemReselected = {
 OR
 
 ```kotlin
-bottomBar.setOnItemSelectedListener(object: OnItemSelectedListener {
+bottomBar.setListener(object: Listener {
     override fun onItemSelect(pos: Int) {
         status.text = "Item $pos selected"
     }
