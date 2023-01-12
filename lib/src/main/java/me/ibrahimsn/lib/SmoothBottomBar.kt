@@ -528,15 +528,16 @@ class SmoothBottomBar @JvmOverloads constructor(
         } else {
             for ((index, item) in items.withIndex()) {
                 //val textLength = paintText.measureText(item.title)
-                items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - 10
+
+                items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - resources.getDimension(R.dimen._5sdp)
                 item.icon.mutate()
                 item.icon.setBounds(
                     item.rect.centerX()
                         .toInt() - itemIconSize.toInt() / 2 - ( (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    (items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding +9 ).toInt(),
+                    (items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding + resources.getDimension(R.dimen._4sdp) ).toInt(),
                     item.rect.centerX()
                         .toInt() + itemIconSize.toInt() / 2 - ( (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    (items[itemActiveIndex].rect.centerY()  + 9 ).toInt()
+                    (items[itemActiveIndex].rect.centerY()  + resources.getDimension(R.dimen._4sdp) ).toInt()
                 )
                 //set badge indicator
 //                if(badge_arr.contains(index)){
@@ -567,7 +568,7 @@ class SmoothBottomBar @JvmOverloads constructor(
                 canvas.drawText(
                     item.title,
                     item.rect.centerX(),
-                    item.rect.centerY() + itemIconSize / 2 + itemIconMargin + 20, paintText
+                    item.rect.centerY() + itemIconSize / 2 + itemIconMargin + resources.getDimension(R.dimen._10sdp), paintText
                 )
             }
         }
