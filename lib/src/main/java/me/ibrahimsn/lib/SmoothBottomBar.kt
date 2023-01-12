@@ -487,9 +487,9 @@ class SmoothBottomBar @JvmOverloads constructor(
         }
 
         // Draw indicator
-        rect.left = indicatorLocation + 10
-        rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - 10
-        rect.right = indicatorLocation + itemWidth - 15
+        rect.left = indicatorLocation + resources.getDimension(R.dimen._20sdp)
+        rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - resources.getDimension(R.dimen._6sdp)
+        rect.right = indicatorLocation + itemWidth - resources.getDimension(R.dimen._20sdp)
         rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2
 
         canvas.drawRoundRect(
