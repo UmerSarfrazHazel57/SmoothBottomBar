@@ -488,9 +488,9 @@ class SmoothBottomBar @JvmOverloads constructor(
 
         // Draw indicator
         rect.left = indicatorLocation + 10
-        rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding + 5
+        rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - 10
         rect.right = indicatorLocation + itemWidth - 15
-        rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2 + itemPadding - 10
+        rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2
 
         canvas.drawRoundRect(
             rect,
@@ -528,15 +528,15 @@ class SmoothBottomBar @JvmOverloads constructor(
         } else {
             for ((index, item) in items.withIndex()) {
                 //val textLength = paintText.measureText(item.title)
-
+                items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - 10
                 item.icon.mutate()
                 item.icon.setBounds(
                     item.rect.centerX()
                         .toInt() - itemIconSize.toInt() / 2 - ( (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    height / 2 - itemIconSize.toInt() / 2,
+                    (items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding +9 ).toInt(),
                     item.rect.centerX()
                         .toInt() + itemIconSize.toInt() / 2 - ( (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    height / 2 + itemIconSize.toInt() / 2
+                    (items[itemActiveIndex].rect.centerY()  + 9 ).toInt()
                 )
                 //set badge indicator
 //                if(badge_arr.contains(index)){
@@ -567,7 +567,7 @@ class SmoothBottomBar @JvmOverloads constructor(
                 canvas.drawText(
                     item.title,
                     item.rect.centerX(),
-                    item.rect.centerY() + itemIconSize / 2 + itemIconMargin + 28, paintText
+                    item.rect.centerY() + itemIconSize / 2 + itemIconMargin + 20, paintText
                 )
             }
         }
