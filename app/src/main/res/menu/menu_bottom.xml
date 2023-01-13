@@ -16,9 +16,6 @@
         android:title="Private"
         android:icon="@drawable/icon_photos"/>
 
-    <item
-        android:id="@+id/fourth_fragment"
-        android:title="Recents"
-        android:icon="@drawable/icon_photos"/>
+
 
 </menu>
