@@ -404,17 +404,17 @@ class SmoothBottomBar @JvmOverloads constructor(
 
         for (item in itemsToLayout) {
             // Prevent text overflow by shortening the item title
-            var shorted = false
-            while (paintText.measureText(item.title) > itemWidth - itemIconSize - itemIconMargin - (itemPadding * 2)) {
-                item.title = item.title.dropLast(1)
-                shorted = true
-            }
-
-            // Add ellipsis character to item text if it is shorted
-            if (shorted) {
-                item.title = item.title.dropLast(1)
-                item.title += context.getString(R.string.ellipsis)
-            }
+//            var shorted = false
+//            while (paintText.measureText(item.title) > itemWidth - itemIconSize - itemIconMargin - (itemPadding * 2)) {
+//                item.title = item.title.dropLast(1)
+//                shorted = true
+//            }
+//
+//            // Add ellipsis character to item text if it is shorted
+//            if (shorted) {
+//                item.title = item.title.dropLast(1)
+//                item.title += context.getString(R.string.ellipsis)
+//            }
 
             item.rect = RectF(lastX, 0f, itemWidth + lastX, height.toFloat())
             lastX += itemWidth
@@ -487,9 +487,9 @@ class SmoothBottomBar @JvmOverloads constructor(
         }
 
         // Draw indicator
-        rect.left = indicatorLocation + 10
+        rect.left = indicatorLocation + resources.getDimension(R.dimen._15sdp)
         rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - 10
-        rect.right = indicatorLocation + itemWidth - 15
+        rect.right = indicatorLocation + itemWidth - resources.getDimension(R.dimen._17sdp)
         rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2
 
         canvas.drawRoundRect(
