@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Build
+import android.os.Handler
 import android.util.AttributeSet
 import android.view.Menu
 import android.view.MotionEvent
@@ -102,7 +103,7 @@ class SmoothBottomBar @JvmOverloads constructor(
     lateinit var menu:Menu
 
     private val badge_arr=HashSet<Int>()
-
+var toListenToClick = true
     // Core Attributes
     var barBackgroundColor: Int
         @ColorInt get() = _barBackgroundColor
@@ -613,19 +614,25 @@ class SmoothBottomBar @JvmOverloads constructor(
     }
 
     private fun onClickAction(viewId : Int){
-        exploreByTouchHelper.invalidateVirtualView(viewId)
-        if (viewId != itemActiveIndex) {
-            itemActiveIndex = viewId
-            onItemSelected?.invoke(viewId)
-            onItemSelectedListener?.onItemSelect(viewId)
-        } else {
-            onItemReselected?.invoke(viewId)
-            onItemReselectedListener?.onItemReselect(viewId)
+        if(toListenToClick){
+            toListenToClick = false
+            exploreByTouchHelper.invalidateVirtualView(viewId)
+            if (viewId != itemActiveIndex) {
+                itemActiveIndex = viewId
+                onItemSelected?.invoke(viewId)
+                onItemSelectedListener?.onItemSelect(viewId)
+            } else {
+                onItemReselected?.invoke(viewId)
+                onItemReselectedListener?.onItemReselect(viewId)
+            }
+            exploreByTouchHelper.sendEventForVirtualView(
+                viewId,
+                AccessibilityEvent.TYPE_VIEW_CLICKED
+            )
+
+            Handler().postDelayed({toListenToClick = true},500)
         }
-        exploreByTouchHelper.sendEventForVirtualView(
-            viewId,
-            AccessibilityEvent.TYPE_VIEW_CLICKED
-        )
+        
     }
 
     private fun applyItemActiveIndex() {
