@@ -488,9 +488,9 @@ var toListenToClick = true
         }
 
         // Draw indicator
-        rect.left = indicatorLocation + resources.getDimension(R.dimen._15sdp)
+        rect.left = indicatorLocation + resources.getDimension(R.dimen._26sdp)
         rect.top = items[itemActiveIndex].rect.centerY() - itemIconSize / 2 - itemPadding - 10
-        rect.right = indicatorLocation + itemWidth - resources.getDimension(R.dimen._17sdp)
+        rect.right = indicatorLocation + itemWidth - resources.getDimension(R.dimen._26sdp)
         rect.bottom = items[itemActiveIndex].rect.centerY() + itemIconSize / 2
 
         canvas.drawRoundRect(
@@ -502,31 +502,31 @@ var toListenToClick = true
 
         val textHeight = (paintText.descent() + paintText.ascent()) / 2
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-            && layoutDirection == LAYOUT_DIRECTION_RTL
-        ) {
-            for ((index, item) in items.withIndex()) {
-                val textLength = paintText.measureText(item.title)
-                item.icon.mutate()
-                item.icon.setBounds(
-                    item.rect.centerX()
-                        .toInt() - itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    height / 2 - itemIconSize.toInt() / 2,
-                    item.rect.centerX()
-                        .toInt() + itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    height / 2 + itemIconSize.toInt() / 2
-                )
-
-                tintAndDrawIcon(item, index, canvas)
-                paintText.alpha = item.alpha
-                canvas.drawText(
-                    item.title,
-                    item.rect.centerX() - (itemIconSize / 2 + itemIconMargin),
-                    item.rect.centerY() - textHeight, paintText
-                )
-            }
-
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+//            && layoutDirection == LAYOUT_DIRECTION_RTL
+//        ) {
+//            for ((index, item) in items.withIndex()) {
+//                val textLength = paintText.measureText(item.title)
+//                item.icon.mutate()
+//                item.icon.setBounds(
+//                    item.rect.centerX()
+//                        .toInt() - itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
+//                    height / 2 - itemIconSize.toInt() / 2,
+//                    item.rect.centerX()
+//                        .toInt() + itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
+//                    height / 2 + itemIconSize.toInt() / 2
+//                )
+//
+//                tintAndDrawIcon(item, index, canvas)
+//                paintText.alpha = item.alpha
+//                canvas.drawText(
+//                    item.title,
+//                    item.rect.centerX() - (itemIconSize / 2 + itemIconMargin),
+//                    item.rect.centerY() - textHeight, paintText
+//                )
+//            }
+//
+//        } else {
             for ((index, item) in items.withIndex()) {
                 //val textLength = paintText.measureText(item.title)
 
@@ -572,7 +572,7 @@ var toListenToClick = true
                     item.rect.centerY() + itemIconSize / 2 + itemIconMargin + resources.getDimension(R.dimen._10sdp), paintText
                 )
             }
-        }
+        //}
     }
 
     private fun tintAndDrawIcon(

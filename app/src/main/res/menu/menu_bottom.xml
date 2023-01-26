@@ -11,10 +11,6 @@
         android:title="Videos"
         android:icon="@drawable/icon_photos"/>
 
-    <item
-        android:id="@+id/third_fragment"
-        android:title="Private"
-        android:icon="@drawable/icon_photos"/>
 
     <item
         android:id="@+id/fourth_fragment"
