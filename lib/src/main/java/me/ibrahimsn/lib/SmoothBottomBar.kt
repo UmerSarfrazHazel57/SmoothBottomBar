@@ -630,9 +630,9 @@ var toListenToClick = true
                 AccessibilityEvent.TYPE_VIEW_CLICKED
             )
 
-            Handler().postDelayed({toListenToClick = true},500)
+            Handler().postDelayed({toListenToClick = true},250)
         }
-        
+
     }
 
     private fun applyItemActiveIndex() {
