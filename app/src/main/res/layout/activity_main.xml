@@ -27,8 +27,9 @@
         app:textColorActive="@color/colorBadge"
         app:badgeColor="@color/colorBadge"
         app:textSize="@dimen/_13sdp"
-
         app:iconSize="24dp"
+        app:itemFontFamily="@font/poppins_semibold"
+        app:itemFontFamilyActive="@font/poppins_medium"
         app:indicatorColor="#2DFFFFFF"
         app:indicatorRadius="16dp"
         app:sideMargins="10dp"

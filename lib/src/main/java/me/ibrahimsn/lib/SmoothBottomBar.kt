@@ -11,6 +11,7 @@ import android.graphics.RectF
 import android.os.Build
 import android.os.Handler
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Menu
 import android.view.MotionEvent
 import android.view.View
@@ -44,6 +45,8 @@ class SmoothBottomBar @JvmOverloads constructor(
     private val rect = RectF()
 
     private var items = listOf<BottomBarItem>()
+
+    lateinit var fontContext : Context
 
     // Attribute Defaults
     @ColorInt
@@ -94,6 +97,9 @@ class SmoothBottomBar @JvmOverloads constructor(
 
     @FontRes
     private var _itemFontFamily: Int = INVALID_RES
+
+    @FontRes
+    private var _itemFontFamilyActive: Int = INVALID_RES
 
     @XmlRes
     private var _itemMenuRes: Int = INVALID_RES
@@ -225,10 +231,23 @@ var toListenToClick = true
         @FontRes get() = _itemFontFamily
         set(@FontRes value) {
             _itemFontFamily = value
-            if (value != INVALID_RES) {
-                paintText.typeface = ResourcesCompat.getFont(context, value)
-                invalidate()
-            }
+            fontContext = context
+//            if (value != INVALID_RES) {
+//                paintText.typeface = ResourcesCompat.getFont(context, value)
+//                invalidate()
+//            }
+        }
+
+
+    var itemFontFamilyActive: Int
+        @FontRes get() = _itemFontFamilyActive
+        set(@FontRes value) {
+            _itemFontFamilyActive = value
+            fontContext = context
+//            if (value != INVALID_RES) {
+//                paintText.typeface = ResourcesCompat.getFont(context, value)
+//                invalidate()
+//            }
         }
 
     var itemMenuRes: Int
@@ -376,6 +395,11 @@ var toListenToClick = true
             itemFontFamily = typedArray.getResourceId(
                 R.styleable.SmoothBottomBar_itemFontFamily,
                 itemFontFamily
+            )
+
+            itemFontFamilyActive = typedArray.getResourceId(
+                R.styleable.SmoothBottomBar_itemFontFamilyActive,
+                itemFontFamilyActive
             )
             itemAnimDuration = typedArray.getInt(
                 R.styleable.SmoothBottomBar_duration,
@@ -556,7 +580,17 @@ var toListenToClick = true
 
 
                 //paintText.alpha = item.alpha
-               paintText.color = if (index == this._itemActiveIndex) itemTextColorActive else itemTextColor
+               paintText.apply {
+                   color = if (index == _itemActiveIndex) itemTextColorActive else itemTextColor
+
+                  try {
+                       typeface = if(index == _itemActiveIndex)  ResourcesCompat.getFont(fontContext, _itemFontFamilyActive) else ResourcesCompat.getFont(fontContext, itemFontFamily)
+                       invalidate()
+                   }catch (e : Exception) {
+                        Log.d("TAG",e.localizedMessage)
+                  }
+
+               }
 //                canvas.drawText(
 //                    item.title,
 //                    item.rect.centerX() + itemIconSize / 2 + itemIconMargin,

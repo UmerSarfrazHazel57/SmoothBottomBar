@@ -12,6 +12,7 @@
         <attr name="textColorActive" format="color" />
         <attr name="badgeColor" format="color" />
         <attr name="itemFontFamily" format="reference" />
+        <attr name="itemFontFamilyActive" format="reference" />
         <attr name="textSize" format="dimension" />
         <attr name="iconSize" format="dimension" />
         <attr name="iconMargin" format="dimension" />
