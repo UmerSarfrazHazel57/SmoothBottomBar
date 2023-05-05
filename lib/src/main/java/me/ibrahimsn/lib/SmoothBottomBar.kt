@@ -526,31 +526,31 @@ var toListenToClick = true
 
         val textHeight = (paintText.descent() + paintText.ascent()) / 2
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
-            && layoutDirection == LAYOUT_DIRECTION_RTL
-        ) {
-            for ((index, item) in items.withIndex()) {
-                val textLength = paintText.measureText(item.title)
-                item.icon.mutate()
-                item.icon.setBounds(
-                    item.rect.centerX()
-                        .toInt() - itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    height / 2 - itemIconSize.toInt() / 2,
-                    item.rect.centerX()
-                        .toInt() + itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
-                    height / 2 + itemIconSize.toInt() / 2
-                )
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+//            && layoutDirection == LAYOUT_DIRECTION_RTL
+//        ) {
+//            for ((index, item) in items.withIndex()) {
+//                val textLength = paintText.measureText(item.title)
+//                item.icon.mutate()
+//                item.icon.setBounds(
+//                    item.rect.centerX()
+//                        .toInt() - itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
+//                    height / 2 - itemIconSize.toInt() / 2,
+//                    item.rect.centerX()
+//                        .toInt() + itemIconSize.toInt() / 2 + ((textLength / 2) * (1 - (OPAQUE - item.alpha) / OPAQUE.toFloat())).toInt(),
+//                    height / 2 + itemIconSize.toInt() / 2
+//                )
+//
+//                tintAndDrawIcon(item, index, canvas)
+//                paintText.alpha = item.alpha
+//                canvas.drawText(
+//                    item.title,
+//                    item.rect.centerX() - (itemIconSize / 2 + itemIconMargin),
+//                    item.rect.centerY() - textHeight, paintText
+//                )
+//            }
 
-                tintAndDrawIcon(item, index, canvas)
-                paintText.alpha = item.alpha
-                canvas.drawText(
-                    item.title,
-                    item.rect.centerX() - (itemIconSize / 2 + itemIconMargin),
-                    item.rect.centerY() - textHeight, paintText
-                )
-            }
-
-        } else {
+        //} else {
             for ((index, item) in items.withIndex()) {
                 //val textLength = paintText.measureText(item.title)
 
@@ -606,7 +606,7 @@ var toListenToClick = true
                     item.rect.centerY() + itemIconSize / 2 + itemIconMargin + resources.getDimension(R.dimen._10sdp), paintText
                 )
             }
-        }
+        //}
     }
 
     private fun tintAndDrawIcon(
