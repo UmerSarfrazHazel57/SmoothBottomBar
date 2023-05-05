@@ -429,17 +429,17 @@ var toListenToClick = true
 
         for (item in itemsToLayout) {
             // Prevent text overflow by shortening the item title
-//            var shorted = false
-//            while (paintText.measureText(item.title) > itemWidth - itemIconSize - itemIconMargin - (itemPadding * 2)) {
-//                item.title = item.title.dropLast(1)
-//                shorted = true
-//            }
-//
-//            // Add ellipsis character to item text if it is shorted
-//            if (shorted) {
-//                item.title = item.title.dropLast(1)
-//                item.title += context.getString(R.string.ellipsis)
-//            }
+            var shorted = false
+            while (paintText.measureText(item.title) > itemWidth - itemIconSize - itemIconMargin - (itemPadding * 2)) {
+                item.title = item.title.dropLast(1)
+                shorted = true
+            }
+
+            // Add ellipsis character to item text if it is shorted
+            if (shorted) {
+                item.title = item.title.dropLast(1)
+                item.title += context.getString(R.string.ellipsis)
+            }
 
             item.rect = RectF(lastX, 0f, itemWidth + lastX, height.toFloat())
             lastX += itemWidth
